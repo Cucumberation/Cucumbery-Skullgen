@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/wanyne.css" type="text/css" rel="stylesheet" />
+    <link href="/elements.css" type="text/css" rel="stylesheet" />
+    <link href="/index.css" type="text/css" rel="stylesheet" />
+
+    <title>마인크래프트 커스텀 헤드 생성기</title>
+
+    <script>
+      async function ping() {
+        return (await fetch('/ping')).text() == 'pong!';
+      }
+
+      setInterval(() => {
+        ping()
+          .then(() => {})
+          .catch(() => {
+            window.close();
+          });
+      }, 1000);
+
+      window.addEventListener('beforeunload', (e) => {
+        navigator.sendBeacon('/close');
+      });
+      window.addEventListener('unload', (e) => {
+        navigator.sendBeacon('/close');
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="wrapper">
+        <h1>마인크래프트 커스텀 헤드 생성기</h1>
+        <label>
+          <span>v.1.0.0</span>
+          <span>(C) 2023 Wany &lt;sung@wany.io&gt;</span>
+        </label>
+      </div>
+    </header>
+    <main>
+      <div class="left">
+        <h2>전개도 (머리 / 모자)</h2>
+        <div id="dropbox">
+          <div class="wrapper">
+            <div class="box"></div>
+            <div class="box input" face="top">
+              <div class="bg" layer></div>
+              <div class="fg" layer>위</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box"></div>
+            <div class="box input" face="all">
+              <div class="bg" layer></div>
+              <div class="fg" layer>전체</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="vr"></div>
+            <div class="box"></div>
+            <div class="box input" face="top_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>위</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box"></div>
+            <div class="box input" face="all_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>전체</div>
+              <div class="drop" layer></div>
+            </div>
+
+            <div class="box input" face="right">
+              <div class="bg" layer></div>
+              <div class="fg" layer>오른쪽</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="face">
+              <div class="bg" layer></div>
+              <div class="fg" layer>앞</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="left">
+              <div class="bg" layer></div>
+              <div class="fg" layer>왼쪽</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="back">
+              <div class="bg" layer></div>
+              <div class="fg" layer>뒤</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="vr"></div>
+            <div class="box input" face="right_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>오른쪽</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="face_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>앞</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="left_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>왼쪽</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box input" face="back_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>뒤</div>
+              <div class="drop" layer></div>
+            </div>
+
+            <div class="box"></div>
+            <div class="box input" face="bottom">
+              <div class="bg" layer></div>
+              <div class="fg" layer>아래</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="vr"></div>
+            <div class="box"></div>
+            <div class="box input" face="bottom_hat">
+              <div class="bg" layer></div>
+              <div class="fg" layer>아래</div>
+              <div class="drop" layer></div>
+            </div>
+            <div class="box"></div>
+            <div class="box"></div>
+          </div>
+        </div>
+        <h2>스킨 미리보기</h2>
+        <div id="preview">
+          <div class="wrapperx16">
+            <div class="skin no0"></div>
+            <div class="skin no1"></div>
+            <div class="skin no2"></div>
+            <div class="skin no3"></div>
+            <div class="skin transparent"></div>
+            <div class="skin no4"></div>
+            <div class="skin no5"></div>
+            <div class="skin no6"></div>
+            <div class="skin no7"></div>
+            <div class="skin mini"></div>
+          </div>
+          <div class="wrapperx8">
+            <div class="skin x8"></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <h2>제어판</h2>
+        <div id="setup">
+          <div class="userdata">
+            <div class="input text" label="inner">
+              <input
+                id="token"
+                type="text"
+                placeholder="마인크래프트 계정 토큰"
+                required
+              />
+              <label>마인크래프트 계정 토큰</label>
+              <div class="border"></div>
+            </div>
+            <label id="tokenguide"
+              >/* minecraft.net 사이트 콘솔에서 다음의 코드를 실행하여 계정 토큰
+              가져오기 */ <br />
+              console.log(`; ${document.cookie}`.split(';
+              bearer_token=').pop().split(';').shift());</label
+            >
+            <div class="input text" label="inner">
+              <input id="uuid" type="text" placeholder="UUID" readonly />
+              <label>UUID</label>
+              <div class="border"></div>
+            </div>
+            <div class="input text" label="inner">
+              <input
+                id="username"
+                type="text"
+                placeholder="유저네임"
+                readonly
+              />
+              <label>유저네임</label>
+              <div class="border"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <dic class="radio">
+              <div class="input checkbox">
+                <input type="radio" name="texturesize" value="x8" />
+                <label>x8</label>
+                <div class="checkbtn"></div>
+              </div>
+              <div class="input checkbox">
+                <input type="radio" name="texturesize" value="x16" checked />
+                <label>x16</label>
+                <div class="checkbtn"></div>
+              </div>
+            </dic>
+            <button id="upload" medium>업로드</button>
+          </div>
+
+          <div class="outputs">
+            <div class="textarea" label="inner">
+              <textarea
+                id="textarea-log"
+                placeholder="로그"
+                readonly
+              ></textarea>
+              <label>로그</label>
+              <div class="border"></div>
+            </div>
+            <div class="textarea" label="inner">
+              <textarea
+                id="textarea-output"
+                placeholder="출력"
+                readonly
+              ></textarea>
+              <label>출력</label>
+              <div class="border"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/index.js"></script>
+  </body>
+</html>
