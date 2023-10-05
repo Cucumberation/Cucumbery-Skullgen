@@ -1,6 +1,6 @@
 # Minecraft player head generator
 
-<img alt="program screenshot" src="https://raw.githubusercontent.com/wnynya/Minecraft-Player-Head-Generator/main/capture.png">
+<img alt="program screenshot" src="https://raw.githubusercontent.com/wnynya/Cucumbery-Skullgen/main/capture.png">
 
 마인크래프트 플레이어 헤드 생성기
 
