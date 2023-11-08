@@ -91,7 +91,9 @@ async function upload(token, stream) {
         },
       },
       (error, res) => {
-        error ? reject(error) : resolve();
+        setTimeout(() => {
+          error ? reject(error) : resolve();
+        }, 2000);
       }
     );
   });

@@ -5,6 +5,8 @@ let mode = 'x8';
 
 let textures = {};
 
+let taskrun = false;
+
 function log(message) {
   const element = document.querySelector('#textarea-log');
   element.value += message + '\r\n';
@@ -313,6 +315,7 @@ async function previewSkin() {
 async function uploadSkin() {
   if (!token || !username || !uuid) {
     alert('토큰이 올바르지 않거나 없습니다.');
+    taskrun = false;
     return;
   }
 
@@ -349,16 +352,29 @@ async function uploadSkin() {
     message += `${miniurl}\n`;
 
     document.querySelector('#textarea-output').value = message;
+
+    taskrun = false;
   } else {
-    const png = await generateSkinX8(i);
+    const png = await generateSkinX8();
     log(`스킨 생성됨`);
     const url = (await mojangAPIPostSkin(png)).url;
     log(`스킨 업로드됨: ${url}`);
+
+    let message = '';
+
+    message += '스킨 URL:\n';
+    message += `${miniurl}\n`;
+
+    document.querySelector('#textarea-output').value = message;
+
+    taskrun = false;
   }
 }
 
-function addEventListener() {
-  document.querySelector('#token').addEventListener('blur', async (event) => {
+let lastvtst = 0;
+async function verifyToken() {
+  clearTimeout(lastvtst);
+  lastvtst = setTimeout(async () => {
     token = document.querySelector('#token').value;
     if (token.length > 400) {
       try {
@@ -381,6 +397,18 @@ function addEventListener() {
         document.querySelector('#username ~ label').innerHTML = '유저네임';
       }
     }
+  }, 1000);
+}
+
+(() => {
+  document.querySelector('#token').addEventListener('blur', (event) => {
+    verifyToken();
+  });
+  document.querySelector('#token').addEventListener('keydown', (event) => {
+    verifyToken();
+  });
+  document.querySelector('#token').addEventListener('keyup', (event) => {
+    verifyToken();
   });
 
   document.querySelector('#tokenguide').addEventListener('click', (event) => {
@@ -394,6 +422,10 @@ function addEventListener() {
   });
 
   document.querySelector('#upload').addEventListener('click', (event) => {
+    if (taskrun) {
+      return;
+    }
+    taskrun = true;
     uploadSkin();
   });
 
@@ -508,6 +540,4 @@ function addEventListener() {
   }
 
   updateMode();
-}
-
-addEventListener();
+})();
